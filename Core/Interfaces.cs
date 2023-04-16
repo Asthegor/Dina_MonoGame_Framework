@@ -44,4 +44,9 @@ namespace Pong_DirectX.DinaFramework.Interfaces
         public abstract Color GetColor();
         public abstract void SetColor(Color color);
     }
+    interface IVisible
+    {
+        public abstract void Visible(bool visible);
+        public abstract bool IsVisible();
+    }
 }

@@ -16,8 +16,8 @@ namespace Pong_DirectX.DinaFramework.GUI
                           HorizontalAlignment halign = default, VerticalAlignment valign = default, int zorder = 0)
         {
             _text = new Text(font, content, color, position, halign, valign, zorder);
-            SetOffset(offset);
             _shadow = new Text(font, content, shadowcolor, position + offset, halign, valign, zorder - 1);
+            SetOffset(offset);
         }
         public Color GetColor() { return _text.GetColor(); }
         public void SetColor(Color color) { _text.SetColor(color); }
@@ -27,6 +27,12 @@ namespace Pong_DirectX.DinaFramework.GUI
         {
             _shadow.SetTimers(waitTime, displayTime, nbLoops);
             _text.SetTimers(waitTime, displayTime, nbLoops);
+        }
+        public string GetContent() { return _text.Content; }
+        public void SetContent(string content)
+        {
+            _shadow.Content = content;
+            _text.Content = content;
         }
         public void Update(GameTime gameTime)
         {
