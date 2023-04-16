@@ -15,7 +15,11 @@ namespace Pong_DirectX.DinaFramework.GUI
         public string Content
         {
             get { return _content; }
-            set { _content = value; }
+            set
+            {
+                _content = value;
+                SetDimensions(_font.MeasureString(value));
+            }
         }
         private Color _color;
 
@@ -69,7 +73,7 @@ namespace Pong_DirectX.DinaFramework.GUI
         public new void SetDimensions(Vector2 dimension)
         {
             base.SetDimensions(dimension);
-            UpdateDisplayPosition(); // Must be before base.SetDimensions
+            UpdateDisplayPosition(); // Must be after base.SetDimensions
         }
         public void SetAlignments(HorizontalAlignment halign,  VerticalAlignment valign)
         {

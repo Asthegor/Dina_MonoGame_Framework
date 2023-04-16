@@ -20,9 +20,9 @@ namespace Pong_DirectX.DinaFramework.Menus
         private readonly List<MenuItem> _items;
         private Group _group = null;
         private readonly int _itemspacing;
-        private IControllerKey _next_item_key;
-        private IControllerKey _previous_item_key;
-        private IControllerKey _active_item_key;
+        private ControllerKey _next_item_key;
+        private ControllerKey _previous_item_key;
+        private ControllerKey _active_item_key;
         private int _currentitemindex = -1;
         public MenuManager(int itemspacing = 5)
         {
@@ -72,9 +72,9 @@ namespace Pong_DirectX.DinaFramework.Menus
         public Vector2 GetItemsDimensions() { return _group.GetDimensions(); }
         public void SetItemsPosition(Vector2 position) { _group.SetPosition(position); }
         public Vector2 GetItemsPosition() { return _group.GetPosition(); }
-        public void SetNextItemKey(IControllerKey key) { _next_item_key = key; }
-        public void SetPreviousItemKey(IControllerKey key) { _previous_item_key = key; }
-        public void SetActivateItemKey(IControllerKey key) { _active_item_key = key; }
+        public void SetNextItemKey(ControllerKey key) { _next_item_key = key; }
+        public void SetPreviousItemKey(ControllerKey key) { _previous_item_key = key; }
+        public void SetActivateItemKey(ControllerKey key) { _active_item_key = key; }
         public void Draw(SpriteBatch spritebatch)
         {
             foreach (var element in _elements)

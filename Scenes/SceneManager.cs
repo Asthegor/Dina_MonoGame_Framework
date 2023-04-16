@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+using Pong_DirectX.DinaFramework.Controls;
 using Pong_DirectX.DinaFramework.Interfaces;
 
 namespace Pong_DirectX.DinaFramework.Scenes
@@ -13,7 +14,7 @@ namespace Pong_DirectX.DinaFramework.Scenes
     class SceneManager : IValue
     {
         private static SceneManager _instance;
-        private static Object _mutex = new Object();
+        private static readonly Object _mutex = new Object();
         public static SceneManager GetInstance(Game game)
         {
             if (_instance == null)
@@ -81,6 +82,7 @@ namespace Pong_DirectX.DinaFramework.Scenes
         }
         public void SetCurrentScene(string name)
         {
+            ControllerKey.ResetAllKeys();
             if (name == "")
             {
                 Debug.WriteLine("The 'name' must not be empty.");
