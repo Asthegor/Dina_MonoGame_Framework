@@ -8,7 +8,7 @@ using Pong_DirectX.DinaFramework.Interfaces;
 
 namespace Pong_DirectX.DinaFramework.GUI
 {
-    class Text : Base, IUpdate, IDraw, IColor
+    class Text : Base, IUpdate, IDraw, IColor, IVisible
     {
         private readonly SpriteFont _font;
         private string _content;
@@ -33,7 +33,7 @@ namespace Pong_DirectX.DinaFramework.GUI
         private float _timerWaitTime;
         private float _timerDisplayTime;
         private bool _wait;
-        private bool _display;
+        private bool _visible;
 
 
         public Text(SpriteFont font, string content, Color color, Vector2 position = default,
@@ -45,11 +45,11 @@ namespace Pong_DirectX.DinaFramework.GUI
             _halign = horizontalalignment;
             _valign = verticalalignment;
             _wait = false;
-            _display = true;
             _displayposition = position;
             SetPosition(position);
             SetDimensions(font.MeasureString(Content));
             SetZOrder(zorder);
+            Visible(true);
         }
         public void SetTimers(float waitTime = -1.0f, float displayTime = -1.0f, int nbLoops = -1)
         {
@@ -57,10 +57,10 @@ namespace Pong_DirectX.DinaFramework.GUI
             _displayTime = displayTime;
             _nbLoops = nbLoops;
 
-            _display = false;
+            _visible = false;
             _wait = false;
             if (waitTime == 0.0f)
-                _display = true;
+                _visible = true;
             else if (waitTime > 0.0f)
                 _wait = true;
         }
@@ -82,7 +82,7 @@ namespace Pong_DirectX.DinaFramework.GUI
         }
         public void Draw(SpriteBatch spritebatch)
         {
-            if (_display)
+            if (_visible)
                 spritebatch.DrawString(_font, Content, _displayposition, _color);
         }
         public void Update(GameTime gameTime)
@@ -95,10 +95,10 @@ namespace Pong_DirectX.DinaFramework.GUI
                 {
                     _timerWaitTime = 0.0f;
                     _wait = false;
-                    _display = true;
+                    _visible = true;
                 }
             }
-            else if (_display)
+            else if (_visible)
             {
                 if (_nbLoops != 0)
                 {
@@ -106,7 +106,7 @@ namespace Pong_DirectX.DinaFramework.GUI
                     if (_timerDisplayTime > _displayTime)
                     {
                         _timerDisplayTime = 0.0f;
-                        _display = false;
+                        _visible = false;
                         _wait = true;
                         if (_nbLoops > 0)
                             _nbLoops--;
@@ -134,9 +134,9 @@ namespace Pong_DirectX.DinaFramework.GUI
 
             _displayposition = base.GetPosition() + offset;
         }
-
         public Color GetColor() { return _color; }
-
         public void SetColor(Color color) { _color = color; }
+        public void Visible(bool visible) { _visible = visible; }
+        public bool IsVisible() { return _visible; }
     }
 }

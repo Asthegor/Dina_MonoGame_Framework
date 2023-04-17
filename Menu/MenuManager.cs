@@ -40,16 +40,12 @@ namespace Pong_DirectX.DinaFramework.Menus
             SortElements();
         }
         public MenuItem AddItem(SpriteFont font, string text, Color color,
-                                Func<MenuItem, MenuItem> selection,
-                                Func<MenuItem, MenuItem> deselection,
-                                Func<MenuItem, MenuItem> activation,
+                                Func<MenuItem, MenuItem> selection = null,
+                                Func<MenuItem, MenuItem> deselection = null,
+                                Func<MenuItem, MenuItem> activation = null,
                                 HorizontalAlignment halign = HorizontalAlignment.Left, VerticalAlignment valign = VerticalAlignment.Top
                                )
         {
-            if (selection is null) { throw new ArgumentNullException(nameof(selection)); }
-            if (deselection is null) { throw new ArgumentNullException(nameof(deselection)); }
-            if (activation is null) { throw new ArgumentNullException(nameof(activation)); }
-
             if (_group == null)
             {
                 _group = new Group();
@@ -75,6 +71,13 @@ namespace Pong_DirectX.DinaFramework.Menus
         public void SetNextItemKey(ControllerKey key) { _next_item_key = key; }
         public void SetPreviousItemKey(ControllerKey key) { _previous_item_key = key; }
         public void SetActivateItemKey(ControllerKey key) { _active_item_key = key; }
+        public MenuItem GetCurrentItem()
+        {
+            if (_currentitemindex == -1)
+                return null;
+            return _items[_currentitemindex];
+        }
+        public void Reset() { _currentitemindex = -1; }
         public void Draw(SpriteBatch spritebatch)
         {
             foreach (var element in _elements)
@@ -85,18 +88,18 @@ namespace Pong_DirectX.DinaFramework.Menus
         }
         public void Update(GameTime gameTime)
         {
-            if (_next_item_key.IsPressed())
+            if (_next_item_key != null && _next_item_key.IsPressed())
             {
                 ChangeCurrentItem(1);
             }
-            if (_previous_item_key.IsPressed())
+            if (_previous_item_key != null && _previous_item_key.IsPressed())
             {
                 ChangeCurrentItem(-1);
             }
-            if (_active_item_key.IsPressed())
+            if (_active_item_key != null && _active_item_key.IsPressed())
             {
                 if (_currentitemindex >= 0 && _currentitemindex < _items.Count)
-                    _items[_currentitemindex].Activation(_items[_currentitemindex]);
+                    _items[_currentitemindex].Activation?.Invoke(_items[_currentitemindex]);
             }
 
             foreach (var element in _elements)
@@ -105,11 +108,10 @@ namespace Pong_DirectX.DinaFramework.Menus
                     update.Update(gameTime);
             }
         }
-
         private void ChangeCurrentItem(int offset)
         {
             if (_currentitemindex >= 0 && _currentitemindex < _items.Count)
-                _items[_currentitemindex].Deselection(_items[_currentitemindex]);
+                _items[_currentitemindex].Deselection?.Invoke(_items[_currentitemindex]);
 
             _currentitemindex += offset;
             if (_currentitemindex >= _items.Count)
@@ -117,9 +119,8 @@ namespace Pong_DirectX.DinaFramework.Menus
             else if (_currentitemindex < 0)
                 _currentitemindex = _items.Count - 1;
 
-            _items[_currentitemindex].Selection(_items[_currentitemindex]);
+            _items[_currentitemindex].Selection?.Invoke(_items[_currentitemindex]);
         }
-
         private void SortElements()
         {
             _elements.Sort(delegate (IElement e1, IElement e2)

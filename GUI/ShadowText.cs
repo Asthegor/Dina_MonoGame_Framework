@@ -7,7 +7,7 @@ using Pong_DirectX.DinaFramework.Interfaces;
 
 namespace Pong_DirectX.DinaFramework.GUI
 {
-    class ShadowText : Base, IUpdate, IDraw, IColor
+    class ShadowText : Base, IUpdate, IDraw, IColor, IVisible
     {
         private readonly Text _text;
         private readonly Text _shadow;
@@ -64,5 +64,11 @@ namespace Pong_DirectX.DinaFramework.GUI
             _text.SetZOrder(zorder);
             _shadow.SetZOrder(zorder - 1);
         }
+        public void Visible(bool visible)
+        {
+            _text.Visible(visible);
+            _shadow.Visible(visible);
+        }
+        public bool IsVisible() { return _text.IsVisible(); }
     }
 }

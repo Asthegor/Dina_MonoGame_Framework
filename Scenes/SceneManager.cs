@@ -94,7 +94,12 @@ namespace Pong_DirectX.DinaFramework.Scenes
                 return;
             }
             _currentscene = _scenes[name];
-            _currentscene.Load(_content);
+            if (!_currentscene.Loaded)
+            {
+                _currentscene.Load(_content);
+                _currentscene.Loaded = true;
+            }
+            _currentscene.Reset();
         }
 
 

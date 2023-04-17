@@ -17,7 +17,7 @@ namespace Pong_DirectX.DinaFramework.Controls
             protected set { _controllers = value; }
         }
         private ControllerAction _action;
-        protected ControllerAction Action
+        public ControllerAction Action
         {
             get { return _action; }
             set { _action = value; }
@@ -35,6 +35,7 @@ namespace Pong_DirectX.DinaFramework.Controls
         public abstract void Reset();
         public abstract bool IsPressed();
         public abstract bool IsReleased();
+        public new abstract string ToString();
     }
     class KeyboardKey : ControllerKey
     {
@@ -59,6 +60,7 @@ namespace Pong_DirectX.DinaFramework.Controls
             return result;
         }
         public override bool IsReleased() => Keyboard.GetState().IsKeyUp(Key);
+        public override string ToString() { return Key.ToString(); }
     }
     class GamepadButton : ControllerKey
     {
@@ -84,5 +86,6 @@ namespace Pong_DirectX.DinaFramework.Controls
             return result;
         }
         public override bool IsReleased() => GamePad.GetState(_indexplayer).IsButtonUp(Button);
+        public override string ToString() { return Button.ToString(); }
     }
 }
