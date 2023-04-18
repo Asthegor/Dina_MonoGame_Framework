@@ -77,6 +77,7 @@ namespace Pong_DirectX.DinaFramework.Menus
                 return null;
             return _items[_currentitemindex];
         }
+        public void SetCurrentItem(MenuItem menuitem) { _currentitemindex = _items.IndexOf(menuitem); }
         public void Reset() { _currentitemindex = -1; }
         public void Draw(SpriteBatch spritebatch)
         {
