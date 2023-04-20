@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-using Pong_DirectX.DinaFramework.Enums;
+using DinaFramework.Enums;
 
-namespace Pong_DirectX.DinaFramework.Controls
+namespace DinaFramework.Controls
 {
     struct Player
     {

@@ -2,11 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Pong_DirectX.DinaFramework.Core;
-using Pong_DirectX.DinaFramework.Enums;
-using Pong_DirectX.DinaFramework.Interfaces;
+using DinaFramework.Core;
+using DinaFramework.Enums;
+using DinaFramework.Interfaces;
 
-namespace Pong_DirectX.DinaFramework.GUI
+namespace DinaFramework.GUI
 {
     class Text : Base, IUpdate, IDraw, IColor, IVisible
     {

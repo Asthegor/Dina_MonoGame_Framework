@@ -1,4 +1,4 @@
-﻿namespace Pong_DirectX.DinaFramework.GUI
+﻿namespace DinaFramework.GUI
 {
     internal class Image
     {

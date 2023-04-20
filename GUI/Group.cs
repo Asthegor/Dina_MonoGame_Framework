@@ -3,10 +3,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Pong_DirectX.DinaFramework.Core;
-using Pong_DirectX.DinaFramework.Interfaces;
+using DinaFramework.Core;
+using DinaFramework.Interfaces;
 
-namespace Pong_DirectX.DinaFramework.GUI
+namespace DinaFramework.GUI
 {
     class Group : Base, IDraw
     {

@@ -1,4 +1,4 @@
-﻿namespace Pong_DirectX.DinaFramework.Enums
+﻿namespace DinaFramework.Enums
 {
     enum HorizontalAlignment { None, Left, Center, Right, Max }
     enum VerticalAlignment { None, Top, Center, Bottom, Max }

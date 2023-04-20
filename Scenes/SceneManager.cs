@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-using Pong_DirectX.DinaFramework.Controls;
-using Pong_DirectX.DinaFramework.Interfaces;
+using DinaFramework.Controls;
+using DinaFramework.Interfaces;
 
-namespace Pong_DirectX.DinaFramework.Scenes
+namespace DinaFramework.Scenes
 {
     class SceneManager : IValue
     {

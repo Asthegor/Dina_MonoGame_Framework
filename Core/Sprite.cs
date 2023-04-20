@@ -3,9 +3,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Pong_DirectX.DinaFramework.Interfaces;
+using DinaFramework.Interfaces;
 
-namespace Pong_DirectX.DinaFramework.Core
+namespace DinaFramework.Core
 {
     class Sprite : Base, IColor, IVisible
     {

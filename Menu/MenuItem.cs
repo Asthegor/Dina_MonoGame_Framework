@@ -3,11 +3,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Pong_DirectX.DinaFramework.Interfaces;
-using Pong_DirectX.DinaFramework.GUI;
-using Pong_DirectX.DinaFramework.Enums;
+using DinaFramework.Interfaces;
+using DinaFramework.GUI;
+using DinaFramework.Enums;
 
-namespace Pong_DirectX.DinaFramework.Menus
+namespace DinaFramework.Menus
 {
     class MenuItem : IDraw, IPosition, IDimensions, IElement, IColor
     {

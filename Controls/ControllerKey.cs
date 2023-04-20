@@ -3,9 +3,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using Pong_DirectX.DinaFramework.Enums;
+using DinaFramework.Enums;
 
-namespace Pong_DirectX.DinaFramework.Controls
+namespace DinaFramework.Controls
 {
     abstract class ControllerKey
     {

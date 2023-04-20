@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-using Pong_DirectX.DinaFramework.Interfaces;
+using DinaFramework.Interfaces;
 
-namespace Pong_DirectX.DinaFramework.Scenes
+namespace DinaFramework.Scenes
 {
     abstract class Scene : ILoad, IUpdate, IDraw, IValue
     {

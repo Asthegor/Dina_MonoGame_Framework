@@ -6,13 +6,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using Pong_DirectX.DinaFramework.Controls;
-using Pong_DirectX.DinaFramework.Enums;
-using Pong_DirectX.DinaFramework.GUI;
-using Pong_DirectX.DinaFramework.Interfaces;
+using DinaFramework.Controls;
+using DinaFramework.Enums;
+using DinaFramework.GUI;
+using DinaFramework.Interfaces;
 
 
-namespace Pong_DirectX.DinaFramework.Menus
+namespace DinaFramework.Menus
 {
     class MenuManager : IDraw, IUpdate
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-using Pong_DirectX.DinaFramework.Interfaces;
+using DinaFramework.Interfaces;
 
-namespace Pong_DirectX.DinaFramework.Core
+namespace DinaFramework.Core
 {
     abstract class Base : IElement, IPosition, IDimensions
     {
