@@ -17,7 +17,7 @@ namespace DinaFramework.Scenes
         public abstract void Draw(SpriteBatch spritebatch);
         public abstract void Load(ContentManager content);
         public abstract void Update(GameTime gameTime);
-        public virtual void Reset() { }
+        public abstract void Reset();
         public void AddValue(string name, object value) { _sceneManager.AddValue(name, value); }
         public T GetValue<T>(string name) { return _sceneManager.GetValue<T>(name); }
         public void RemoveValue(string name) { _sceneManager.RemoveValue(name); }

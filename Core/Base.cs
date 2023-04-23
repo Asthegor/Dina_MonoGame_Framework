@@ -15,12 +15,12 @@ namespace DinaFramework.Core
             get { return _zorder; }
             set { _zorder = value; }
         }
-        public Vector2 Position
+        public virtual Vector2 Position
         {
             get { return _position; }
             set { _position = value; }
         }
-        public Vector2 Dimensions
+        public virtual Vector2 Dimensions
         {
             get { return _dimensions; } 
             set { _dimensions = value; }

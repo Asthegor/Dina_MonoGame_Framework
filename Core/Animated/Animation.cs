@@ -16,7 +16,7 @@ using SharpDX.Direct2D1.Effects;
 
 namespace DinaFramework.Core.Animated
 {
-    class Animation : Base, IUpdate, IDraw, IColor
+    class Animation : Base, IUpdate, IDraw, IColor, ICollide
     {
         readonly List<Sprite> _frames = new List<Sprite>();
         readonly float _speed;
@@ -25,6 +25,7 @@ namespace DinaFramework.Core.Animated
         Color _color;
         Vector2 _origin;
         Vector2 _flip;
+        Rectangle _rect;
         public Animation(ContentManager content, string prefix, int nbframes, float speed, int start, Color color,
                          Vector2 position, Vector2 dimensions, float rotation = default, Vector2 origin = default,
                          Vector2 flip = default, int zorder = default) : base(position, dimensions, zorder)
@@ -90,6 +91,8 @@ namespace DinaFramework.Core.Animated
             for (int index = start; index < nbframes + start; index++)
             {
                 texture = content.Load<Texture2D>(prefix + index.ToString());
+                if (Dimensions == default)
+                    Dimensions = new Vector2(texture.Width, texture.Height) * scale;
                 _frames.Add(new Sprite(texture, Color, Position, rotation, origin, scale, Flip, ZOrder));
             }
         }
@@ -101,6 +104,7 @@ namespace DinaFramework.Core.Animated
                 foreach (Sprite frame in _frames)
                     frame.Position = value + Origin;
                 base.Position = value;
+                _rect.Location = new Point(Convert.ToInt32(value.X), Convert.ToInt32(value.Y));
             }
         }
         public new Vector2 Dimensions
@@ -111,6 +115,7 @@ namespace DinaFramework.Core.Animated
                 foreach (Sprite frame in _frames)
                     frame.Dimensions = value;
                 base.Dimensions = value;
+                _rect.Size = new Point(Convert.ToInt32(value.X), Convert.ToInt32(value.Y));
             }
         }
         public Color Color
@@ -158,6 +163,8 @@ namespace DinaFramework.Core.Animated
                 _flip = value;
             }
         }
+        public Rectangle Rectangle { get { return _rect; } }
+
         public void Update(GameTime gameTime)
         {
             _currentframe += Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds) * _speed;
@@ -167,6 +174,10 @@ namespace DinaFramework.Core.Animated
         public void Draw(SpriteBatch spritebatch)
         {
             _frames[(int)_currentframe].Draw(spritebatch);
+        }
+        public bool Collide(ICollide item)
+        {
+            return Rectangle.Intersects(item.Rectangle);
         }
     }
 }

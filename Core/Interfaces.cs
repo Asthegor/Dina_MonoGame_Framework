@@ -44,4 +44,9 @@ namespace DinaFramework.Interfaces
     {
         public abstract bool Visible { get; set; }
     }
+    interface ICollide : IPosition, IDimensions
+    {
+        public abstract bool Collide(ICollide item);
+        public Rectangle Rectangle { get; }
+    }
 }

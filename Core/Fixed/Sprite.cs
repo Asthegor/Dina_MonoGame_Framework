@@ -7,7 +7,7 @@ using DinaFramework.Interfaces;
 
 namespace DinaFramework.Core.Fixed
 {
-    class Sprite : Base, IColor, IVisible
+    class Sprite : Base, IColor, IVisible, IDraw, ICollide
     {
         Rectangle _rectangle;
         Color _color;
@@ -36,7 +36,7 @@ namespace DinaFramework.Core.Fixed
             Rectangle = new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Dimensions.X), Convert.ToInt32(Dimensions.Y)); ;
             Rotation = rotation;
             Origin = origin;
-            Flip = flip;
+            Flip = flip == default ? Vector2.One : flip;
         }
         public Sprite(Texture2D texture, Color color, Vector2 position, float rotation, Vector2 origin = default, Vector2 scale = default,
                       Vector2 flip = default, int zorder = default) : this(texture, color, position, zorder)
@@ -44,7 +44,7 @@ namespace DinaFramework.Core.Fixed
             Scale = scale;
             Rotation = rotation;
             Origin = origin;
-            Flip = flip;
+            Flip = flip == default ? Vector2.One : flip;
             Rectangle = new Rectangle(Convert.ToInt32(Position.X), Convert.ToInt32(Position.Y), Convert.ToInt32(Dimensions.X), Convert.ToInt32(Dimensions.Y));
         }
         public Sprite(Sprite sprite)
@@ -76,7 +76,7 @@ namespace DinaFramework.Core.Fixed
             get { return _color; }
             set { _color = value; }
         }
-        public new Vector2 Position
+        public override Vector2 Position
         {
             get { return base.Position; }
             set
@@ -138,6 +138,11 @@ namespace DinaFramework.Core.Fixed
                 else
                     spriteBatch.Draw(Texture, Rectangle, new Rectangle(0, 0, _texture.Width, _texture.Height), Color, Rotation, Origin, _effects, ZOrder);
             }
+        }
+
+        public bool Collide(ICollide item)
+        {
+            return Rectangle.Intersects(item.Rectangle);
         }
     }
 }
