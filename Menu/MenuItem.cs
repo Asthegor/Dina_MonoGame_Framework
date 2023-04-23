@@ -4,32 +4,60 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using DinaFramework.Interfaces;
-using DinaFramework.GUI;
+using DinaFramework.Core.Fixed;
 using DinaFramework.Enums;
+using SharpDX.Direct2D1.Effects;
 
 namespace DinaFramework.Menus
 {
     class MenuItem : IDraw, IPosition, IDimensions, IElement, IColor
     {
-        private readonly Text _text;
-        private Func<MenuItem, MenuItem> _selection;
-        private Func<MenuItem, MenuItem> _deselection;
-        private Func<MenuItem, MenuItem> _activation;
-        internal Func<MenuItem, MenuItem> Selection
+        readonly Text _text;
+        Func<MenuItem, MenuItem> _selection;
+        Func<MenuItem, MenuItem> _deselection;
+        Func<MenuItem, MenuItem> _activation;
+        public Func<MenuItem, MenuItem> Selection
         {
             get { return _selection; }
             set { _selection = value; }
         }
-        internal Func<MenuItem, MenuItem> Deselection
+        public Func<MenuItem, MenuItem> Deselection
         {
             get { return _deselection; }
             set { _deselection = value; }
         }
-        internal Func<MenuItem, MenuItem> Activation
+        public Func<MenuItem, MenuItem> Activation
         {
             get { return _activation; }
             set { _activation = value; }
         }
+
+        public Vector2 Position
+        {
+            get { return _text.Position; }
+            set { _text.Position = value; }
+        }
+        public Vector2 Dimensions
+        {
+            get { return _text.Dimensions; }
+            set { _text.Dimensions = value; }
+        }
+        public int ZOrder
+        {
+            get { return _text.ZOrder; }
+            set { _text.ZOrder = value; }
+        }
+        public Color Color
+        {
+            get { return _text.Color; }
+            set { _text.Color = value; }
+        }
+        public string Content
+        {
+            get { return _text.Content; }
+            set { _text.Content = value; }
+        }
+
         public MenuItem(SpriteFont font, string text, Color color, 
                         Func<MenuItem, MenuItem> selection = null,
                         Func<MenuItem, MenuItem> deselection = null,
@@ -42,21 +70,6 @@ namespace DinaFramework.Menus
             Deselection = deselection;
             Activation = activation;
         }
-        public Vector2 GetPosition() { return _text.GetPosition(); }
-        public void SetPosition(Vector2 position)
-        {
-            _text.SetPosition(position);
-        }
-        public Vector2 GetDimensions() { return _text.GetDimensions(); }
-        public void SetDimensions(Vector2 dimensions)
-        {
-            _text.SetDimensions(dimensions);
-        }
-        public int GetZOrder() { return _text.GetZOrder(); }
-        public void SetZOrder(int zorder) { _text.SetZOrder(zorder); }
-        public Color GetColor() { return _text.GetColor(); }
-        public void SetColor(Color color) { _text.SetColor(color); }
-        public void SetContent(string content) { _text.Content = content; }
         public void Draw(SpriteBatch spritebatch)
         {
             _text.Draw(spritebatch);

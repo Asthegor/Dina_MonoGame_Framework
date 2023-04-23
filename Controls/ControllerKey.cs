@@ -9,13 +9,13 @@ namespace DinaFramework.Controls
 {
     abstract class ControllerKey
     {
-        private static List<ControllerKey> _controllers = new List<ControllerKey>();
+         ControllerAction _action;
+        static List<ControllerKey> _controllers = new List<ControllerKey>();
         public static List<ControllerKey> Controllers
         {
             get { return _controllers; }
             protected set { _controllers = value; }
         }
-        private ControllerAction _action;
         public ControllerAction Action
         {
             get { return _action; }
@@ -38,14 +38,14 @@ namespace DinaFramework.Controls
     }
     class KeyboardKey : ControllerKey
     {
-        private Keys Key { get; set; }
+        Keys Key { get; set; }
+        KeyboardState oldState = Keyboard.GetState();
         
-        private KeyboardState oldState = Keyboard.GetState();
         public KeyboardKey(Keys key, ControllerAction action = ControllerAction.Pressed)
         {
             Key = key;
-            Reset();
             Action = action;
+            Reset();
         }
         public override void Reset() { oldState = Keyboard.GetState(); }
         public override bool IsPressed()
@@ -63,9 +63,9 @@ namespace DinaFramework.Controls
     }
     class GamepadButton : ControllerKey
     {
-        private readonly PlayerIndex _indexplayer;
-        private Buttons Button { get; set; }
-        private GamePadState oldState;
+        readonly PlayerIndex _indexplayer;
+        Buttons Button { get; set; }
+        GamePadState oldState;
         public GamepadButton(Buttons button, ControllerAction action = ControllerAction.Pressed, PlayerIndex index = PlayerIndex.One)
         {
             Button = button;

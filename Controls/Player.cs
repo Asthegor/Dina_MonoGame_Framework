@@ -4,15 +4,15 @@ using DinaFramework.Enums;
 
 namespace DinaFramework.Controls
 {
-    struct Player
+    class Player
     {
-        public ControllerType controller;
-        public PlayerIndex index;
-        public ControllerKey up;
-        public ControllerKey down;
-        public ControllerKey left;
-        public ControllerKey right;
-        public ControllerKey validate;
-        public ControllerKey pause;
+        public ControllerType controller = ControllerType.Keyboard;
+        public PlayerIndex index = PlayerIndex.One;
+        public ControllerKey up = null;
+        public ControllerKey down = null;
+        public ControllerKey left = null;
+        public ControllerKey right = null;
+        public ControllerKey pause = null;
+        public ControllerKey validate = null;
     }
 }

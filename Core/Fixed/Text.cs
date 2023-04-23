@@ -6,36 +6,64 @@ using DinaFramework.Core;
 using DinaFramework.Enums;
 using DinaFramework.Interfaces;
 
-namespace DinaFramework.GUI
+namespace DinaFramework.Core.Fixed
 {
     class Text : Base, IUpdate, IDraw, IColor, IVisible
     {
-        private readonly SpriteFont _font;
-        private string _content;
+        readonly SpriteFont _font;
+        string _content;
+        Color _color;
+        bool _visible;
+
+        HorizontalAlignment _halign;
+        VerticalAlignment _valign;
+
+        Vector2 _displayposition;
+
+        float _waitTime;
+        float _displayTime;
+        int _nbLoops;
+        float _timerWaitTime;
+        float _timerDisplayTime;
+        bool _wait;
+
         public string Content
         {
             get { return _content; }
             set
             {
                 _content = value;
-                SetDimensions(_font.MeasureString(value));
+                Dimensions = _font.MeasureString(value);
             }
         }
-        private Color _color;
-
-        private HorizontalAlignment _halign;
-        private VerticalAlignment _valign;
-        private Vector2 _displayposition;
-
-        private float _waitTime;
-        private float _displayTime;
-        private int _nbLoops;
-        private float _timerWaitTime;
-        private float _timerDisplayTime;
-        private bool _wait;
-        private bool _visible;
-
-
+        public Color Color
+        {
+            get { return _color; }
+            set { _color = value; }
+        }
+        public bool Visible
+        {
+            get { return _visible; } 
+            set { _visible = value; }
+        }
+        public new Vector2 Position
+        {
+            get { return base.Position; }
+            set
+            {
+                base.Position = value;
+                UpdateDisplayPosition();
+            }
+        }
+        public new Vector2 Dimensions
+        {
+            get { return base.Dimensions; }
+            set
+            {
+                base.Dimensions = value;
+                UpdateDisplayPosition();
+            }
+        }
         public Text(SpriteFont font, string content, Color color, Vector2 position = default,
                     HorizontalAlignment horizontalalignment = HorizontalAlignment.Left, VerticalAlignment verticalalignment = VerticalAlignment.Top, int zorder = 0)
         {
@@ -46,10 +74,28 @@ namespace DinaFramework.GUI
             _valign = verticalalignment;
             _wait = false;
             _displayposition = position;
-            SetPosition(position);
-            SetDimensions(font.MeasureString(Content));
-            SetZOrder(zorder);
-            Visible(true);
+            Position = position;
+            Dimensions = font.MeasureString(Content);
+            ZOrder = zorder;
+            Visible = true;
+        }
+        public Text(Text text)
+        {
+            _font = text._font;
+            Content = text._content;
+            Color = text.Color;
+            Visible = text.Visible;
+            _halign = text._halign;
+            _valign = text._valign;
+            _displayposition = text._displayposition;
+            _waitTime = text._waitTime;
+            _displayTime = text._displayTime;
+            _nbLoops = text._nbLoops;
+            _timerDisplayTime = text._timerDisplayTime;
+            _wait = text._wait;
+            Position = text.Position;
+            Dimensions = text.Dimensions;
+            ZOrder = text.ZOrder;
         }
         public void SetTimers(float waitTime = -1.0f, float displayTime = -1.0f, int nbLoops = -1)
         {
@@ -64,17 +110,7 @@ namespace DinaFramework.GUI
             else if (waitTime > 0.0f)
                 _wait = true;
         }
-        public Vector2 GetTextDimensions() { return _font.MeasureString(Content); }
-        public new void SetPosition(Vector2 position)
-        {
-            base.SetPosition(position);
-            UpdateDisplayPosition(); // Must be after base.SetPosition
-        }
-        public new void SetDimensions(Vector2 dimension)
-        {
-            base.SetDimensions(dimension);
-            UpdateDisplayPosition(); // Must be after base.SetDimensions
-        }
+        public Vector2 TextDimensions { get { return _font.MeasureString(Content); } }
         public void SetAlignments(HorizontalAlignment halign,  VerticalAlignment valign)
         {
             _halign = halign;
@@ -119,24 +155,18 @@ namespace DinaFramework.GUI
         private void UpdateDisplayPosition()
         {
             Vector2 offset = new Vector2();
-            Vector2 textdimension = GetTextDimensions();
-            Vector2 dimensions = GetDimensions();
 
             if (_halign == HorizontalAlignment.Center)
-                offset.X = (dimensions.X - textdimension.X) / 2.0f;
+                offset.X = (Dimensions.X - TextDimensions.X) / 2.0f;
             else if (_halign == HorizontalAlignment.Right)
-                offset.X = dimensions.X - textdimension.X;
+                offset.X = Dimensions.X - TextDimensions.X;
 
             if (_valign == VerticalAlignment.Center)
-                offset.Y = (dimensions.Y - textdimension.Y) / 2.0f;
+                offset.Y = (Dimensions.Y - TextDimensions.Y) / 2.0f;
             else if (_valign == VerticalAlignment.Bottom)
-                offset.Y = dimensions.Y - textdimension.Y;
+                offset.Y = Dimensions.Y - TextDimensions.Y;
 
-            _displayposition = base.GetPosition() + offset;
+            _displayposition = base.Position + offset;
         }
-        public Color GetColor() { return _color; }
-        public void SetColor(Color color) { _color = color; }
-        public void Visible(bool visible) { _visible = visible; }
-        public bool IsVisible() { return _visible; }
     }
 }

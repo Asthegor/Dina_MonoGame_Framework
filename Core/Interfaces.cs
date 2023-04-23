@@ -8,8 +8,7 @@ namespace DinaFramework.Interfaces
 {
     interface IElement
     {
-        public abstract int GetZOrder();
-        public abstract void SetZOrder(int zorder);
+        public abstract int ZOrder { get; set; }
     }
     interface ILoad
     {
@@ -25,13 +24,11 @@ namespace DinaFramework.Interfaces
     }
     interface IPosition
     {
-        public abstract Vector2 GetPosition();
-        public abstract void SetPosition(Vector2 position);
+        public abstract Vector2 Position { get; set; }
     }
     interface IDimensions
     {
-        public abstract Vector2 GetDimensions();
-        public abstract void SetDimensions(Vector2 dimensions);
+        public abstract Vector2 Dimensions { get; set; }
     }
     interface IValue
     {
@@ -41,12 +38,10 @@ namespace DinaFramework.Interfaces
     }
     interface IColor
     {
-        public abstract Color GetColor();
-        public abstract void SetColor(Color color);
+        public abstract Color Color { get; set; }
     }
     interface IVisible
     {
-        public abstract void Visible(bool visible);
-        public abstract bool IsVisible();
+        public abstract bool Visible { get; set; }
     }
 }

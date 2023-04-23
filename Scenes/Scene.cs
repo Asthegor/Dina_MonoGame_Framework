@@ -9,12 +9,11 @@ namespace DinaFramework.Scenes
     abstract class Scene : ILoad, IUpdate, IDraw, IValue
     {
         public bool Loaded { get; set; }
-        private readonly SceneManager _sceneManager;
+        protected SceneManager _sceneManager;
         public Scene(SceneManager sceneManager)
         {
             _sceneManager = sceneManager;
         }
-        public SceneManager GetSceneManager() { return _sceneManager; }
         public abstract void Draw(SpriteBatch spritebatch);
         public abstract void Load(ContentManager content);
         public abstract void Update(GameTime gameTime);
